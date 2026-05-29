@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galería · Tarjetas Numerología</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    width:100%; height:100%;
+    background:transparent;
+    font-family: system-ui, sans-serif;
+    overflow:hidden;
+  }
+
+  /* Escenario centrado */
+  .stage-wrap {
+    width:100%;
+    height:100%;
+    min-height:640px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:22px;
+  }
+
+  .stage {
+    position:relative;
+    width:560px;
+    height:540px;
+    perspective:1600px;
+  }
+
+  /* Cada tarjeta (wrapper del iframe) */
+  .card {
+    position:absolute;
+    top:50%; left:50%;
+    width:380px;
+    height:514px;
+    margin:-257px 0 0 -190px;        /* centra (mitad de 514 / 380) */
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 12px 40px rgba(112,15,59,0.18), 0 3px 10px rgba(0,0,0,0.08);
+    background:#efeae9;
+    transition:transform 0.55s cubic-bezier(0.22,1,0.36,1),
+               opacity   0.55s ease,
+               filter    0.55s ease;
+    will-change:transform, opacity;
+  }
+  .card iframe {
+    width:100%; height:100%;
+    border:0;
+    display:block;
+    pointer-events:none;             /* los clics los maneja el escenario */
+  }
+
+  /* Flip del contenedor OPACO (sin fase transparente → sin fondo blanco).
+     Solo se aplica a la tarjeta del frente. */
+  .card.flip { animation: flipIn 0.75s cubic-bezier(0.22,1,0.36,1) both; }
+  @keyframes flipIn {
+    from { transform: rotateY(-90deg); }
+    to   { transform: rotateY(0deg); }
+  }
+
+  /* Controles */
+  .controls {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+  }
+  .btn {
+    width:42px; height:42px;
+    border-radius:50%;
+    border:1.5px solid rgba(112,15,59,0.45);
+    background:rgba(255,255,255,0.92);
+    color:rgba(112,15,59,1);
+    font-family:'DegularDisplay-Bold','Degular Display','Degular',system-ui,sans-serif;
+    font-weight:700;
+    font-size:30px;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    line-height:1; padding:0 0 3px 0;
+    -webkit-text-stroke:0.4px currentColor;   /* refuerza el grosor del glifo */
+    transition:background 0.2s, border-color 0.2s, transform 0.1s;
+  }
+  .btn:hover { background:rgba(112,15,59,0.08); border-color:rgba(112,15,59,0.7); }
+  .btn:active { transform:scale(0.93); }
+
+  .dots { display:flex; gap:8px; align-items:center; }
+  .dot {
+    width:7px; height:7px;
+    border-radius:50%;
+    background:rgba(112,15,59,0.22);
+    cursor:pointer;
+    transition:background 0.25s, transform 0.25s;
+  }
+  .dot.on { background:rgba(112,15,59,0.85); transform:scale(1.3); }
+</style>
+</head>
+<body>
+
+<div class="stage-wrap">
+  <div class="stage" id="stage"></div>
+
+  <div class="controls">
+    <button class="btn" id="prev" aria-label="Anterior">&#8249;</button>
+    <div class="dots" id="dots"></div>
+    <button class="btn" id="next" aria-label="Siguiente">&#8250;</button>
+  </div>
+</div>
+
+<script>
+  /* Orden de las tarjetas (cámbialo libremente) */
+  const SRC = [
+    'tarjeta-11-anim.html',   // Personalidad · 11
+    'tarjeta-02-anim.html',   // Intensidad · 1
+    'tarjeta-03-anim.html',   // Fecha de Nacimiento · 7
+    'tarjeta-04-anim.html',   // Trayectoria de vida · 4
+    'tarjeta-05-anim.html',   // Poder del Nombre · 4
+  ];
+
+  const stage  = document.getElementById('stage');
+  const dotsEl = document.getElementById('dots');
+  const N      = SRC.length;
+
+  /* Crea tarjetas + dots */
+  const cards = SRC.map((src, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const ifr = document.createElement('iframe');
+    ifr.src = src;                  // se cargan una sola vez (sin recargas → sin flash)
+    card.appendChild(ifr);
+    stage.appendChild(card);
+
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.addEventListener('click', () => go(i));
+    dotsEl.appendChild(dot);
+    return { card, ifr };
+  });
+  const dots = [...dotsEl.querySelectorAll('.dot')];
+
+  let active = 0;
+  let visible = false;
+
+  /* Posiciona el deck según la tarjeta activa */
+  function render() {
+    cards.forEach(({ card }, i) => {
+      const rel = (i - active + N) % N;         // 0 = frente, 1..N-1 detrás
+      const depth = rel;
+
+      const x = -depth * 26;                    // SIEMPRE a la izquierda
+      const y = depth * 7;                       // baja un poco las de atrás
+      const s = 1 - depth * 0.05;                // escala decreciente
+      const rotY = depth * 5;                    // ligero giro 3D hacia la izquierda
+
+      card.style.transform =
+        `translate(${x}px, ${y}px) scale(${s}) rotateY(${rotY}deg)`;
+      card.style.opacity = depth > 3 ? 0 : (1 - depth * 0.15);
+      card.style.zIndex  = String(100 - depth);
+      card.style.pointerEvents = rel === 0 ? 'none' : 'auto';
+      card.onclick = rel === 0 ? null : () => go(i);
+    });
+
+    dots.forEach((d, i) => d.classList.toggle('on', i === active));
+  }
+
+  /* Dispara la entrada del frente: flip del contenedor + reinicio de animaciones
+     internas. Solo se ejecuta cuando la galería está visible (ver observer). */
+  function triggerFront() {
+    if (!visible) return;
+    cards.forEach(({ card }) => card.classList.remove('flip'));
+    const { card, ifr } = cards[active];
+    void card.offsetWidth;                       // reinicia el flip
+    card.classList.add('flip');
+    if (ifr.contentWindow) ifr.contentWindow.postMessage('replay', '*');
+  }
+
+  function go(i) { active = ((i % N) + N) % N; render(); triggerFront(); }
+  function next() { go(active + 1); }
+  function prev() { go(active - 1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft')  prev();
+  });
+
+  /* Swipe / arrastre horizontal */
+  let dragX = null;
+  stage.addEventListener('pointerdown', e => { dragX = e.clientX; });
+  window.addEventListener('pointerup', e => {
+    if (dragX === null) return;
+    const dx = e.clientX - dragX;
+    if (dx < -40) next();
+    else if (dx > 40) prev();
+    dragX = null;
+  });
+
+  /* Optimización: solo anima cuando la galería está en pantalla.
+     Dispara la entrada del frente al hacerse visible y la repite al volver de
+     una pestaña oculta. */
+  function setVisible(v) {
+    const wasVisible = visible;
+    visible = v;
+    if (visible && !wasVisible) triggerFront();
+  }
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(
+      es => setVisible(es[0].isIntersecting),
+      { threshold: 0.15 }
+    ).observe(stage);
+  } else {
+    visible = true;
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && visible) triggerFront();
+  });
+
+  render();
+  // Si IntersectionObserver no existe, arranca la entrada de una vez
+  if (visible) triggerFront();
+</script>
+
+</body>
+</html>
