@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 850 1150">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: 0em;
+      }
+
+      .cls-2 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        stroke-width: 5px;
+      }
+
+      .cls-3, .cls-4 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-5 {
+        letter-spacing: 0em;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+
+      .cls-6 {
+        fill: url(#Degradado_sin_nombre_491);
+      }
+
+      .cls-7 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-8 {
+        letter-spacing: 0em;
+      }
+
+      .cls-9 {
+        letter-spacing: 0em;
+      }
+
+      .cls-10 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-11 {
+        letter-spacing: 0em;
+      }
+
+      .cls-12 {
+        letter-spacing: 0em;
+      }
+
+      .cls-13 {
+        font-family: DegularDisplay-Regular, 'Degular Display';
+        font-size: 32px;
+      }
+
+      .cls-14 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-15 {
+        letter-spacing: 0em;
+      }
+
+      .cls-16 {
+        letter-spacing: 0em;
+      }
+
+      .cls-17 {
+        font-family: KaftanSerifTrial-Regular, 'Kaftan Serif - Trial';
+        font-size: 72px;
+      }
+
+      .cls-18 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-19 {
+        font-family: PPEditorialNew-Italic, 'PP Editorial New';
+        font-size: 434.13px;
+      }
+
+      .cls-19, .cls-20 {
+        fill: #700f3b;
+      }
+
+      .cls-19, .cls-21 {
+        font-style: italic;
+      }
+
+      .cls-22 {
+        letter-spacing: 0em;
+      }
+
+      .cls-23 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-21 {
+        font-family: PPEditorialNew-UltralightItalic, 'PP Editorial New';
+        font-size: 41.1px;
+        font-weight: 100;
+      }
+
+      .cls-24 {
+        letter-spacing: .01em;
+      }
+
+      .cls-25 {
+        letter-spacing: 0em;
+      }
+    </style>
+    <radialGradient id="Degradado_sin_nombre_491" data-name="Degradado sin nombre 491" cx="84.83" cy="1192.9" fx="-1068.29" fy="894.5" r="1229.4" gradientUnits="userSpaceOnUse">
+      <stop offset=".11" stop-color="#af5d71" stop-opacity=".75"/>
+      <stop offset=".11" stop-color="#b06174" stop-opacity=".76"/>
+      <stop offset=".15" stop-color="#bf818f" stop-opacity=".81"/>
+      <stop offset=".18" stop-color="#cc9da7" stop-opacity=".86"/>
+      <stop offset=".22" stop-color="#d7b5bc" stop-opacity=".91"/>
+      <stop offset=".27" stop-color="#dfc8cc" stop-opacity=".94"/>
+      <stop offset=".32" stop-color="#e6d7d9" stop-opacity=".97"/>
+      <stop offset=".39" stop-color="#ebe2e2" stop-opacity=".99"/>
+      <stop offset=".47" stop-color="#eee8e7" stop-opacity="1"/>
+      <stop offset=".69" stop-color="#efeae9"/>
+    </radialGradient>
+  </defs>
+  <g id="Capa_4" data-name="Capa 4">
+    <rect class="cls-6" width="850" height="1150"/>
+  </g>
+  <g id="Capa_2" data-name="Capa 2">
+    <g>
+      <path class="cls-20" d="M752.1,28.52l-1.88,58.8c-.01.77-1.24.8-1.26,0l-1.88-58.8c-.08-3.37,5.1-3.4,5.02,0h0Z"/>
+      <path class="cls-20" d="M747.08,171.3l1.88-58.79c0-.77,1.25-.8,1.26,0l1.88,58.79c.08,3.37-5.1,3.4-5.02,0h0Z"/>
+      <path class="cls-20" d="M820.97,102.42l-58.79-1.88c-.77-.01-.8-1.24,0-1.26l58.79-1.88c3.37-.08,3.4,5.1,0,5.02h0Z"/>
+      <path class="cls-20" d="M678.2,97.4l58.79,1.88c.77.01.8,1.24,0,1.26,0,0-58.79,1.88-58.79,1.88-3.37.08-3.4-5.1,0-5.02h0Z"/>
+      <path class="cls-20" d="M790.73,62.31l-33.74,31.1c-.56.53-1.43-.32-.89-.89,0,0,31.08-33.76,31.08-33.76,2.33-2.48,6.05,1.2,3.55,3.55h0Z"/>
+      <path class="cls-20" d="M708.44,137.51l33.74-31.1c.56-.53,1.43.32.89.89l-31.08,33.76c-2.33,2.49-6.05-1.2-3.55-3.55h0Z"/>
+      <path class="cls-20" d="M787.17,141.05l-31.08-33.76c-.53-.56.32-1.43.89-.89l33.74,31.09c2.48,2.33-1.21,6.05-3.55,3.55h0Z"/>
+      <path class="cls-20" d="M711.99,58.77l31.08,33.75c.53.56-.31,1.43-.89.89l-33.74-31.09c-2.48-2.33,1.2-6.05,3.55-3.55h0Z"/>
+    </g>
+    <path class="cls-20" d="M111.85,594.42c.66-2.85,2.89-5.09,5.75-5.74l16.55-1.11-16.55-1.11c-2.86-.65-5.09-2.89-5.75-5.74l-1.11-16.55-1.11,16.55c-.66,2.86-2.89,5.09-5.75,5.74l-16.55,1.11,16.55,1.11c2.86.65,5.09,2.89,5.74,5.74l1.11,16.55,1.11-16.55Z"/>
+  </g>
+  <g id="Capa_1" data-name="Capa 1">
+    <text class="cls-17" transform="translate(33.93 87.95)"><tspan class="cls-23" x="0" y="0">P</tspan><tspan class="cls-24" x="39.89" y="0">o</tspan><tspan x="84.96" y="0">der d</tspan><tspan class="cls-10" x="269.13" y="0">e</tspan><tspan class="cls-8" x="307.87" y="0">l</tspan><tspan x="0" y="72">Nombre</tspan></text>
+    <circle cx="622.53" cy="377.07" r="7.69"/>
+    <circle class="cls-4" cx="302.91" cy="414.65" r="7.69"/>
+    <text class="cls-21" transform="translate(46.11 306.23)"><tspan x="0" y="0">1</tspan><tspan x="0" y="98.65">2</tspan><tspan x="0" y="197.3">3</tspan><tspan x="0" y="295.95">4</tspan><tspan x="0" y="394.6">5</tspan><tspan x="0" y="493.25">6</tspan><tspan x="0" y="591.9">7</tspan><tspan x="0" y="690.56">8</tspan><tspan x="0" y="789.21">9</tspan></text>
+    <g>
+      <text class="cls-13" transform="translate(146.78 704.17)"><tspan class="cls-14" x="0" y="0">T</tspan><tspan x="14.66" y="0">us aspiraciones y el camino que s</tspan><tspan class="cls-25" x="418.59" y="0">e</tspan><tspan class="cls-2" x="433.76" y="0">g</tspan><tspan class="cls-15" x="448.29" y="0">uirás para </tspan><tspan x="0" y="38.4">cumplir el p</tspan><tspan class="cls-12" x="140.83" y="38.4">r</tspan><tspan x="149.63" y="38.4">opósi</tspan><tspan class="cls-5" x="217.18" y="38.4">t</tspan><tspan x="227.13" y="38.4">o de </tspan><tspan class="cls-1" x="284.45" y="38.4">t</tspan><tspan x="294.37" y="38.4">u vida.</tspan><tspan x="0" y="115.2">Energía práctica, estable y constructi</tspan><tspan class="cls-18" x="450.78" y="115.2">v</tspan><tspan x="464.06" y="115.2">a. Buscas </tspan><tspan class="cls-12" x="0" y="153.6">r</tspan><tspan x="8.8" y="153.6">esultados conc</tspan><tspan class="cls-12" x="196.86" y="153.6">r</tspan><tspan class="cls-2" x="205.66" y="153.6">e</tspan><tspan class="cls-5" x="220.8" y="153.6">t</tspan><tspan x="230.75" y="153.6">os y </tspan><tspan class="cls-18" x="283.9" y="153.6">v</tspan><tspan x="297.18" y="153.6">alor </tspan><tspan class="cls-12" x="346.94" y="153.6">r</tspan><tspan class="cls-22" x="355.74" y="153.6">e</tspan><tspan x="370.97" y="153.6">al.</tspan><tspan class="cls-14" x="0" y="230.4">T</tspan><tspan x="14.66" y="230.4">u nomb</tspan><tspan class="cls-11" x="109.86" y="230.4">r</tspan><tspan class="cls-15" x="118.66" y="230.4">e </tspan><tspan class="cls-5" x="138.78" y="230.4">t</tspan><tspan x="148.74" y="230.4">e impulsa a c</tspan><tspan class="cls-12" x="306.59" y="230.4">r</tspan><tspan class="cls-22" x="315.39" y="230.4">e</tspan><tspan x="330.62" y="230.4">ar s</tspan><tspan class="cls-25" x="372.54" y="230.4">e</tspan><tspan class="cls-1" x="387.71" y="230.4">g</tspan><tspan x="402.24" y="230.4">uridad, o</tspan><tspan class="cls-12" x="505.53" y="230.4">r</tspan><tspan x="514.33" y="230.4">den y </tspan><tspan x="0" y="268.8">estruc</tspan><tspan class="cls-2" x="79.26" y="268.8">t</tspan><tspan x="89.18" y="268.8">uras que pe</tspan><tspan class="cls-16" x="230.81" y="268.8">r</tspan><tspan class="cls-9" x="239.61" y="268.8">du</tspan><tspan class="cls-16" x="271.74" y="268.8">r</tspan><tspan class="cls-9" x="280.54" y="268.8">en en el tiempo.</tspan><tspan x="0" y="345.6">E</tspan><tspan class="cls-12" x="15.46" y="345.6">r</tspan><tspan x="24.25" y="345.6">es una construc</tspan><tspan class="cls-5" x="220.12" y="345.6">t</tspan><tspan x="230.08" y="345.6">ora n</tspan><tspan class="cls-2" x="290.43" y="345.6">at</tspan><tspan x="314.91" y="345.6">ural de p</tspan><tspan class="cls-16" x="417.31" y="345.6">r</tspan><tspan x="426.11" y="345.6">o</tspan><tspan class="cls-7" x="442.11" y="345.6">y</tspan><tspan x="455.99" y="345.6">ec</tspan><tspan class="cls-25" x="487.03" y="345.6">t</tspan><tspan x="496.99" y="345.6">os y de </tspan><tspan class="cls-12" x="0" y="384">r</tspan><tspan class="cls-22" x="8.8" y="384">e</tspan><tspan x="24.03" y="384">alidades.</tspan></text>
+      <line class="cls-3" x1="147.63" y1="770.94" x2="478.53" y2="770.94"/>
+    </g>
+    <g>
+      <path d="M619.81,381.47c16.03-21.55,41.88-59.32,38.28-86.8-3.96-24.75-34.55-26.74-54.78-26.6-81.63,3.95-171.85,64.26-240.45,106.38-4.01,2.41-8.03,4.83-12.2,6.97,6.89-3.85,16.84-10.79,23.6-15.2,65.23-43.63,176.71-116.98,257.43-100.62,63.7,14.61,14.45,87.42-11.87,115.87h0Z"/>
+      <text class="cls-19" transform="translate(306.89 596.37)"><tspan x="0" y="0">4</tspan></text>
+      <path d="M303.39,414.17c-31.79,26.95-122.59,109.15-52.19,139.3,62.93,23,236.87-64.04,294.69-99.69,9.41-5.98,19.02-11.85,27.27-19.42-8,7.85-17.42,14.09-26.71,20.29-58.34,38.42-230.77,127.58-297.07,103.39-75.78-34.14,16.24-116.84,54.01-143.88h0Z"/>
+    </g>
+  </g>
+</svg>

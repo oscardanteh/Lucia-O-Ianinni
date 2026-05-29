@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 850 1150">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: 0em;
+      }
+
+      .cls-2 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        stroke-width: 5px;
+      }
+
+      .cls-3, .cls-4 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-5 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-6 {
+        letter-spacing: 0em;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+
+      .cls-8 {
+        letter-spacing: -.07em;
+      }
+
+      .cls-9 {
+        letter-spacing: .01em;
+      }
+
+      .cls-10 {
+        letter-spacing: 0em;
+      }
+
+      .cls-11 {
+        letter-spacing: 0em;
+      }
+
+      .cls-12 {
+        letter-spacing: 0em;
+      }
+
+      .cls-13 {
+        letter-spacing: 0em;
+      }
+
+      .cls-14 {
+        font-family: DegularDisplay-Regular, 'Degular Display';
+        font-size: 32px;
+      }
+
+      .cls-15 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-16 {
+        letter-spacing: 0em;
+      }
+
+      .cls-17 {
+        letter-spacing: 0em;
+      }
+
+      .cls-18 {
+        font-family: KaftanSerifTrial-Regular, 'Kaftan Serif - Trial';
+        font-size: 72px;
+      }
+
+      .cls-19 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-20 {
+        letter-spacing: .01em;
+      }
+
+      .cls-21 {
+        font-family: PPEditorialNew-Italic, 'PP Editorial New';
+        font-size: 434.13px;
+      }
+
+      .cls-21, .cls-22 {
+        fill: #700f3b;
+      }
+
+      .cls-21, .cls-23 {
+        font-style: italic;
+      }
+
+      .cls-24 {
+        letter-spacing: 0em;
+      }
+
+      .cls-25 {
+        letter-spacing: -.08em;
+      }
+
+      .cls-26 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-27 {
+        letter-spacing: .03em;
+      }
+
+      .cls-28 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-29 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-30 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-23 {
+        font-family: PPEditorialNew-UltralightItalic, 'PP Editorial New';
+        font-size: 41.1px;
+        font-weight: 100;
+      }
+
+      .cls-31 {
+        letter-spacing: 0em;
+      }
+
+      .cls-32 {
+        fill: url(#Degradado_sin_nombre_478);
+      }
+    </style>
+    <radialGradient id="Degradado_sin_nombre_478" data-name="Degradado sin nombre 478" cx="207.38" cy="1113.24" fx="-189.21" fy="361.86" r="1229.4" gradientTransform="translate(163.4 56.69) rotate(8.93) scale(1 .93)" gradientUnits="userSpaceOnUse">
+      <stop offset=".11" stop-color="#af5d71" stop-opacity=".75"/>
+      <stop offset=".12" stop-color="#b06074" stop-opacity=".76"/>
+      <stop offset=".22" stop-color="#c18593" stop-opacity=".82"/>
+      <stop offset=".33" stop-color="#cfa4ad" stop-opacity=".88"/>
+      <stop offset=".44" stop-color="#dabdc3" stop-opacity=".92"/>
+      <stop offset=".55" stop-color="#e3d1d3" stop-opacity=".96"/>
+      <stop offset=".68" stop-color="#eadfdf" stop-opacity=".98"/>
+      <stop offset=".81" stop-color="#ede7e6" stop-opacity="1"/>
+      <stop offset="1" stop-color="#efeae9"/>
+    </radialGradient>
+  </defs>
+  <g id="Capa_4" data-name="Capa 4">
+    <rect class="cls-32" width="850" height="1150"/>
+  </g>
+  <g id="Capa_2" data-name="Capa 2">
+    <g>
+      <path class="cls-22" d="M752.1,28.52l-1.88,58.8c-.01.77-1.24.8-1.26,0l-1.88-58.8c-.08-3.37,5.1-3.4,5.02,0h0Z"/>
+      <path class="cls-22" d="M747.08,171.3l1.88-58.79c0-.77,1.25-.8,1.26,0l1.88,58.79c.08,3.37-5.1,3.4-5.02,0h0Z"/>
+      <path class="cls-22" d="M820.97,102.42l-58.79-1.88c-.77-.01-.8-1.24,0-1.26l58.79-1.88c3.37-.08,3.4,5.1,0,5.02h0Z"/>
+      <path class="cls-22" d="M678.2,97.4l58.79,1.88c.77.01.8,1.24,0,1.26,0,0-58.79,1.88-58.79,1.88-3.37.08-3.4-5.1,0-5.02h0Z"/>
+      <path class="cls-22" d="M790.73,62.31l-33.74,31.1c-.56.53-1.43-.32-.89-.89,0,0,31.08-33.76,31.08-33.76,2.33-2.48,6.05,1.2,3.55,3.55h0Z"/>
+      <path class="cls-22" d="M708.44,137.51l33.74-31.1c.56-.53,1.43.32.89.89l-31.08,33.76c-2.33,2.49-6.05-1.2-3.55-3.55h0Z"/>
+      <path class="cls-22" d="M787.17,141.05l-31.08-33.76c-.53-.56.32-1.43.89-.89l33.74,31.09c2.48,2.33-1.21,6.05-3.55,3.55h0Z"/>
+      <path class="cls-22" d="M711.99,58.77l31.08,33.75c.53.56-.31,1.43-.89.89l-33.74-31.09c-2.48-2.33,1.2-6.05,3.55-3.55h0Z"/>
+    </g>
+    <path class="cls-22" d="M111.85,590.67c.66-2.85,2.89-5.09,5.75-5.74l16.55-1.11-16.55-1.11c-2.86-.65-5.09-2.89-5.75-5.74l-1.11-16.55-1.11,16.55c-.66,2.86-2.89,5.09-5.75,5.74l-16.55,1.11,16.55,1.11c2.86.65,5.09,2.89,5.74,5.74l1.11,16.55,1.11-16.55Z"/>
+  </g>
+  <g id="Capa_1" data-name="Capa 1">
+    <text class="cls-18" transform="translate(33.93 91.01)"><tspan class="cls-25" x="0" y="0">T</tspan><tspan class="cls-5" x="46.01" y="0">r</tspan><tspan class="cls-13" x="77.62" y="0">a</tspan><tspan class="cls-26" x="118.94" y="0">y</tspan><tspan class="cls-20" x="161.93" y="0">e</tspan><tspan class="cls-11" x="202.68" y="0">cto</tspan><tspan class="cls-27" x="315.5" y="0">r</tspan><tspan class="cls-10" x="350.42" y="0">ia</tspan><tspan x="0" y="72">de </tspan><tspan class="cls-9" x="106.34" y="72">v</tspan><tspan class="cls-29" x="151.63" y="72">i</tspan><tspan x="171" y="72">da</tspan></text>
+    <circle cx="622.53" cy="377.07" r="7.69"/>
+    <circle class="cls-4" cx="302.91" cy="414.65" r="7.69"/>
+    <text class="cls-23" transform="translate(46.11 306.23)"><tspan x="0" y="0">1</tspan><tspan x="0" y="98.65">2</tspan><tspan x="0" y="197.3">3</tspan><tspan x="0" y="295.95">4</tspan><tspan x="0" y="394.6">5</tspan><tspan x="0" y="493.25">6</tspan><tspan x="0" y="591.9">7</tspan><tspan x="0" y="690.56">8</tspan><tspan x="0" y="789.21">9</tspan></text>
+    <g>
+      <text class="cls-14" transform="translate(146.78 719.62)"><tspan x="0" y="0">El núme</tspan><tspan class="cls-13" x="98.69" y="0">r</tspan><tspan x="107.49" y="0">o sob</tspan><tspan class="cls-13" x="174.04" y="0">r</tspan><tspan x="182.84" y="0">e el que debes ac</tspan><tspan class="cls-2" x="392.57" y="0">t</tspan><tspan x="402.49" y="0">uar para ser </tspan><tspan class="cls-30" x="549.08" y="0">f</tspan><tspan x="558.78" y="0">eliz.</tspan><tspan x="0" y="76.8">Muestra </tspan><tspan class="cls-2" x="106.59" y="76.8">t</tspan><tspan x="116.51" y="76.8">us tale</tspan><tspan class="cls-1" x="195.71" y="76.8">n</tspan><tspan class="cls-31" x="211.26" y="76.8">t</tspan><tspan x="221.21" y="76.8">os, capacidades y qué tipos de </tspan><tspan x="0" y="115.2">car</tspan><tspan class="cls-13" x="39.52" y="115.2">r</tspan><tspan x="48.32" y="115.2">eras o </tspan><tspan class="cls-2" x="126.37" y="115.2">v</tspan><tspan x="140" y="115.2">ocaciones son más adecuadas para ti.</tspan><tspan class="cls-15" x="0" y="192">T</tspan><tspan x="14.66" y="192">u camino es construi</tspan><tspan class="cls-8" x="269.5" y="192">r</tspan><tspan class="cls-16" x="276.38" y="192">, or</tspan><tspan class="cls-12" x="310.55" y="192">g</tspan><tspan x="325.02" y="192">ani</tspan><tspan class="cls-28" x="361.37" y="192">z</tspan><tspan x="375.35" y="192">a</tspan><tspan class="cls-8" x="390.11" y="192">r</tspan><tspan class="cls-16" x="396.99" y="192">, dar estruc</tspan><tspan class="cls-1" x="530.36" y="192">t</tspan><tspan x="540.28" y="192">ura y </tspan><tspan x="0" y="230.4">c</tspan><tspan class="cls-13" x="15.71" y="230.4">r</tspan><tspan class="cls-24" x="24.51" y="230.4">e</tspan><tspan x="39.74" y="230.4">ar bases sólidas para ti y para los demás.</tspan><tspan class="cls-19" x="0" y="307.2">L</tspan><tspan x="12.86" y="307.2">a disciplina, la constancia y el o</tspan><tspan class="cls-13" x="384.06" y="307.2">r</tspan><tspan x="392.86" y="307.2">den </tspan><tspan class="cls-31" x="445.11" y="307.2">t</tspan><tspan x="455.07" y="307.2">e conducirán al </tspan><tspan x="0" y="345.6">éxi</tspan><tspan class="cls-6" x="35.23" y="345.6">t</tspan><tspan x="45.18" y="345.6">o y a la </tspan><tspan class="cls-17" x="129.28" y="345.6">r</tspan><tspan class="cls-24" x="138.08" y="345.6">e</tspan><tspan x="153.31" y="345.6">ali</tspan><tspan class="cls-28" x="179.07" y="345.6">z</tspan><tspan x="193.05" y="345.6">ación pe</tspan><tspan class="cls-7" x="297.63" y="345.6">r</tspan><tspan class="cls-16" x="306.59" y="345.6">sonal.</tspan></text>
+      <line class="cls-3" x1="147.63" y1="750.26" x2="478.53" y2="750.26"/>
+    </g>
+    <g>
+      <path d="M619.81,381.47c16.03-21.55,41.88-59.32,38.28-86.8-3.96-24.75-34.55-26.74-54.78-26.6-81.63,3.95-171.85,64.26-240.45,106.38-4.01,2.41-8.03,4.83-12.2,6.97,6.89-3.85,16.84-10.79,23.6-15.2,65.23-43.63,176.71-116.98,257.43-100.62,63.69,14.61,14.45,87.42-11.87,115.87h0Z"/>
+      <text class="cls-21" transform="translate(298.72 596.37)"><tspan x="0" y="0">4</tspan></text>
+      <path d="M303.39,414.17c-31.79,26.95-122.59,109.15-52.19,139.3,62.93,23,236.87-64.04,294.69-99.69,9.41-5.98,19.02-11.85,27.27-19.42-8,7.85-17.42,14.09-26.71,20.29-58.34,38.42-230.77,127.58-297.07,103.39-75.78-34.14,16.24-116.84,54.01-143.88h0Z"/>
+    </g>
+  </g>
+</svg>
