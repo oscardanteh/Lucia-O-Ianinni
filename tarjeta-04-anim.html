@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarjeta · 4 Trayectoria de vida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    width:100%; height:100%;
+    background:transparent;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+
+  .card-scene { perspective: 1400px; perspective-origin: center center; }
+
+  #card-svg {
+    display:block;
+    width: 380px;
+    height: auto;
+    animation: cardFlip 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+  }
+  @keyframes cardFlip {
+    from { transform: rotateY(-90deg); opacity:0; }
+    to   { transform: rotateY(0deg);   opacity:1; }
+  }
+
+  #orbit-dots {
+    transform-box: view-box;
+    transform-origin: 463px 396px;
+    animation: orbitSpin 14s linear infinite;
+  }
+  @keyframes orbitSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  #title-anim { opacity: 0; animation: fadeUp 0.6s ease-out 0.75s forwards; }
+
+  .num-item { opacity: 0; }
+  #n1 { animation: fadeUp 0.35s ease-out 1.00s forwards; }
+  #n2 { animation: fadeUp 0.35s ease-out 1.10s forwards; }
+  #n3 { animation: fadeUp 0.35s ease-out 1.20s forwards; }
+  #n4 { animation: fadeUp 0.35s ease-out 1.30s forwards; }
+  #n5 { animation: fadeUp 0.35s ease-out 1.40s forwards; }
+  #n6 { animation: fadeUp 0.35s ease-out 1.50s forwards; }
+  #n7 { animation: fadeUp 0.35s ease-out 1.60s forwards; }
+  #n8 { animation: fadeUp 0.35s ease-out 1.70s forwards; }
+  #n9 { animation: fadeUp 0.35s ease-out 1.80s forwards; }
+
+  /* Sparkle junto al número 4 (y≈580) */
+  #sparkle {
+    opacity: 0;
+    transform-box: view-box;
+    transform-origin: 110.74px 580.01px;
+    animation: sparkPop 0.55s cubic-bezier(0.175,0.885,0.32,1.275) 1.85s forwards;
+  }
+  @keyframes sparkPop {
+    0%   { opacity:0; transform: scale(0) rotate(-30deg); }
+    65%  { opacity:1; transform: scale(1.6) rotate(8deg); }
+    100% { opacity:1; transform: scale(1)   rotate(0deg); }
+  }
+
+  #desc-anim { opacity: 0; animation: fadeUp 0.7s ease-out 2.05s forwards; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(16px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="card-scene">
+<svg id="card-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 850 1150">
+
+  <defs>
+    <style>
+      .cls-4  { fill:none; stroke:#000; stroke-miterlimit:10; }
+      .cls-18 { font-family:KaftanSerifTrial-Regular,'Kaftan Serif - Trial',Cormorant,Georgia,serif; font-size:72px; }
+      .cls-21 { font-family:PPEditorialNew-Italic,'PP Editorial New',Cormorant,Georgia,serif; font-size:434.13px; font-style:italic; fill:#700f3b; }
+      .cls-22 { fill:#700f3b; }
+      .cls-23 { font-family:PPEditorialNew-UltralightItalic,'PP Editorial New',Cormorant,Georgia,serif; font-size:41.1px; font-weight:100; font-style:italic; }
+      .cls-5  { letter-spacing:-.02em; }
+      .cls-9  { letter-spacing:.01em; }
+      .cls-10 { letter-spacing:0em; }
+      .cls-11 { letter-spacing:0em; }
+      .cls-13 { letter-spacing:0em; }
+      .cls-20 { letter-spacing:.01em; }
+      .cls-25 { letter-spacing:-.08em; }
+      .cls-26 { letter-spacing:-.03em; }
+      .cls-27 { letter-spacing:.03em; }
+      .cls-29 { letter-spacing:-.02em; }
+    </style>
+    <radialGradient id="grad" cx="207.38" cy="1113.24" fx="-189.21" fy="361.86" r="1229.4" gradientTransform="translate(163.4 56.69) rotate(8.93) scale(1 .93)" gradientUnits="userSpaceOnUse">
+      <stop offset=".11" stop-color="#af5d71" stop-opacity=".75"/>
+      <stop offset=".12" stop-color="#b06074" stop-opacity=".76"/>
+      <stop offset=".22" stop-color="#c18593" stop-opacity=".82"/>
+      <stop offset=".33" stop-color="#cfa4ad" stop-opacity=".88"/>
+      <stop offset=".44" stop-color="#dabdc3" stop-opacity=".92"/>
+      <stop offset=".55" stop-color="#e3d1d3" stop-opacity=".96"/>
+      <stop offset=".68" stop-color="#eadfdf" stop-opacity=".98"/>
+      <stop offset=".81" stop-color="#ede7e6" stop-opacity="1"/>
+      <stop offset="1"   stop-color="#efeae9"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Fondo -->
+  <rect fill="url(#grad)" width="850" height="1150"/>
+
+  <!-- Estrella superior derecha -->
+  <g>
+    <path class="cls-22" d="M752.1,28.52l-1.88,58.8c-.01.77-1.24.8-1.26,0l-1.88-58.8c-.08-3.37,5.1-3.4,5.02,0h0Z"/>
+    <path class="cls-22" d="M747.08,171.3l1.88-58.79c0-.77,1.25-.8,1.26,0l1.88,58.79c.08,3.37-5.1,3.4-5.02,0h0Z"/>
+    <path class="cls-22" d="M820.97,102.42l-58.79-1.88c-.77-.01-.8-1.24,0-1.26l58.79-1.88c3.37-.08,3.4,5.1,0,5.02h0Z"/>
+    <path class="cls-22" d="M678.2,97.4l58.79,1.88c.77.01.8,1.24,0,1.26,0,0-58.79,1.88-58.79,1.88-3.37.08-3.4-5.1,0-5.02h0Z"/>
+    <path class="cls-22" d="M790.73,62.31l-33.74,31.1c-.56.53-1.43-.32-.89-.89,0,0,31.08-33.76,31.08-33.76,2.33-2.48,6.05,1.2,3.55,3.55h0Z"/>
+    <path class="cls-22" d="M708.44,137.51l33.74-31.1c.56-.53,1.43.32.89.89l-31.08,33.76c-2.33,2.49-6.05-1.2-3.55-3.55h0Z"/>
+    <path class="cls-22" d="M787.17,141.05l-31.08-33.76c-.53-.56.32-1.43.89-.89l33.74,31.09c2.48,2.33-1.21,6.05-3.55,3.55h0Z"/>
+    <path class="cls-22" d="M711.99,58.77l31.08,33.75c.53.56-.31,1.43-.89.89l-33.74-31.09c-2.48-2.33,1.2-6.05,3.55-3.55h0Z"/>
+  </g>
+
+  <!-- Sparkle junto al número 4 -->
+  <path id="sparkle" class="cls-22" d="M111.85,590.67c.66-2.85,2.89-5.09,5.75-5.74l16.55-1.11-16.55-1.11c-2.86-.65-5.09-2.89-5.75-5.74l-1.11-16.55-1.11,16.55c-.66,2.86-2.89,5.09-5.75,5.74l-16.55,1.11,16.55,1.11c2.86.65,5.09,2.89,5.74,5.74l1.11,16.55,1.11-16.55Z"/>
+
+  <!-- Título (dos líneas) -->
+  <g id="title-anim">
+    <text class="cls-18" transform="translate(33.93 91.01)"><tspan class="cls-25" x="0" y="0">T</tspan><tspan class="cls-5" x="46.01" y="0">r</tspan><tspan class="cls-13" x="77.62" y="0">a</tspan><tspan class="cls-26" x="118.94" y="0">y</tspan><tspan class="cls-20" x="161.93" y="0">e</tspan><tspan class="cls-11" x="202.68" y="0">cto</tspan><tspan class="cls-27" x="315.5" y="0">r</tspan><tspan class="cls-10" x="350.42" y="0">ia</tspan><tspan x="0" y="72">de </tspan><tspan class="cls-9" x="106.34" y="72">v</tspan><tspan class="cls-29" x="151.63" y="72">i</tspan><tspan x="171" y="72">da</tspan></text>
+  </g>
+
+  <!-- Números 1–9 -->
+  <g transform="translate(46.11 306.23)"><text id="n1" class="cls-23 num-item">1</text></g>
+  <g transform="translate(46.11 404.88)"><text id="n2" class="cls-23 num-item">2</text></g>
+  <g transform="translate(46.11 503.53)"><text id="n3" class="cls-23 num-item">3</text></g>
+  <g transform="translate(46.11 602.18)"><text id="n4" class="cls-23 num-item">4</text></g>
+  <g transform="translate(46.11 700.83)"><text id="n5" class="cls-23 num-item">5</text></g>
+  <g transform="translate(46.11 799.48)"><text id="n6" class="cls-23 num-item">6</text></g>
+  <g transform="translate(46.11 898.13)"><text id="n7" class="cls-23 num-item">7</text></g>
+  <g transform="translate(46.11 996.78)"><text id="n8" class="cls-23 num-item">8</text></g>
+  <g transform="translate(46.11 1095.43)"><text id="n9" class="cls-23 num-item">9</text></g>
+
+  <!-- Arco derecho: detrás del número -->
+  <path d="M619.81,381.47c16.03-21.55,41.88-59.32,38.28-86.8-3.96-24.75-34.55-26.74-54.78-26.6-81.63,3.95-171.85,64.26-240.45,106.38-4.01,2.41-8.03,4.83-12.2,6.97,6.89-3.85,16.84-10.79,23.6-15.2,65.23-43.63,176.71-116.98,257.43-100.62,63.7,14.61,14.45,87.42-11.87,115.87h0Z"/>
+
+  <!-- Número grande -->
+  <text class="cls-21" transform="translate(298.72 596.37)">4</text>
+
+  <!-- Arco izquierdo: delante del número -->
+  <path d="M303.39,414.17c-31.79,26.95-122.59,109.15-52.19,139.3,62.93,23,236.87-64.04,294.69-99.69,9.41-5.98,19.02-11.85,27.27-19.42-8,7.85-17.42,14.09-26.71,20.29-58.34,38.42-230.77,127.58-297.07,103.39-75.78-34.14,16.24-116.84,54.01-143.88h0Z"/>
+
+  <!-- Bolitas que giran -->
+  <g id="orbit-dots">
+    <circle cx="622.53" cy="377.07" r="7.69"/>
+    <circle class="cls-4" cx="302.91" cy="414.65" r="7.69"/>
+  </g>
+
+  <!-- Texto descripción -->
+  <g id="desc-anim">
+    <foreignObject x="124.78" y="700" width="694" height="450" overflow="visible">
+      <div xmlns="http://www.w3.org/1999/xhtml" style="
+        font-family: DegularDisplay-Regular, 'Degular Display', Cormorant, Georgia, serif;
+        font-size: 36px;
+        line-height: 1.15;
+        color: #000;
+        width: 694px;
+      ">
+        <p style="margin: 0 0 0.9em 0;">El número sobre el que debes actuar para ser feliz.</p>
+        <p style="margin: 0 0 0.9em 0;">Muestra tus talentos, capacidades y qué tipos de carreras o vocaciones son más adecuadas para ti.</p>
+        <p style="margin: 0 0 0.9em 0;">Tu camino es construir, organizar, dar estructura y crear bases sólidas para ti y para los demás.</p>
+        <p style="margin: 0;">La disciplina, la constancia y el orden te conducirán al éxito y a la realización personal.</p>
+      </div>
+    </foreignObject>
+  </g>
+
+</svg>
+</div>
+<script>
+  var framed = window.self !== window.top;
+  function killInnerFlip() {
+    if (!framed) return;
+    var svg = document.getElementById('card-svg');
+    if (svg) svg.style.animation = 'none';
+  }
+  killInnerFlip();
+  window.addEventListener('message', function (e) {
+    if (e.data !== 'replay') return;
+    var sel = framed
+      ? '#title-anim,#orbit-dots,.num-item,#sparkle,#desc-anim'
+      : '#card-svg,#title-anim,#orbit-dots,.num-item,#sparkle,#desc-anim';
+    document.querySelectorAll(sel).forEach(function (el) {
+      el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
+    });
+    killInnerFlip();
+  });
+</script>
+</body>
+</html>
