@@ -82,7 +82,7 @@ const SHARED_CSS = `
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{width:100%;height:100%;background:transparent;display:flex;align-items:center;justify-content:center;overflow:hidden}
   .card-scene{width:100%;height:100%;perspective:1400px;perspective-origin:center center}
-  #card-svg{display:block;width:100%;height:100%;animation:cardFlip 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s both}
+  #card-svg{display:block;width:100%;height:auto;animation:cardFlip 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s both}
   @keyframes cardFlip{from{transform:rotateY(-90deg);opacity:0}to{transform:rotateY(0deg);opacity:1}}
   #orbit-dots{transform-box:view-box;transform-origin:463px 396px;animation:orbitSpin 14s linear infinite}
   @keyframes orbitSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
@@ -152,7 +152,7 @@ ${opts.extraCSS || ''}
 ${sparkCSS}
 </style></head><body>
 <div class="card-scene">
-<svg id="card-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 1150" preserveAspectRatio="xMidYMid slice">
+<svg id="card-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 1150">
 <defs>${opts.gradDefs}</defs>
 <rect fill="url(#grad)" width="850" height="1150"/>
 ${STAR}
@@ -336,7 +336,7 @@ const CARDS_HTML = [T11, T02, T03, T04, T05];
 /* ── Responsive sizing ──────────────────────────────────────────────── */
 function applySize() {
   const cw = Math.max(230, Math.min(420, Math.round(window.innerWidth * 0.48)));
-  const ch = Math.round(cw * (1250 / 850));
+  const ch = Math.round(cw * (1150 / 850));
   const r  = document.documentElement;
   r.style.setProperty('--cw', cw + 'px');
   r.style.setProperty('--ch', ch + 'px');
