@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galería · Tarjetas Numerología</title>
+<style>
+  @font-face { font-family:'PP Editorial New'; font-style:italic; font-weight:400; src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/PPEditorialNew-Italic.otf') format('opentype'); }
+  @font-face { font-family:'PP Editorial New'; font-style:italic; font-weight:100; src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/PPEditorialNew-UltralightItalic.otf') format('opentype'); }
+  @font-face { font-family:'Kaftan Serif - Trial'; font-style:normal; font-weight:400; src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/kaftan.otf') format('opentype'); }
+  @font-face { font-family:'Degular Display'; font-style:normal; font-weight:400; src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/44511.otf') format('opentype'); }
+  @font-face { font-family:'Degular Display'; font-style:normal; font-weight:700; src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/44524.otf') format('opentype'); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; background:transparent; font-family:system-ui,sans-serif; overflow:hidden; }
+  :root { --cw:380px; --ch:514px; --cx:190px; --cy:257px; --sw:551px; }
+  .stage-wrap { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; padding:10px 0; }
+  .stage { position:relative; width:var(--sw); height:var(--ch); perspective:1600px; flex-shrink:0; }
+  .card {
+    position:absolute; top:50%; left:50%;
+    width:var(--cw); height:var(--ch);
+    margin:calc(-1 * var(--cy)) 0 0 calc(-1 * var(--cx));
+    border-radius:10px; overflow:hidden;
+    box-shadow:0 12px 40px rgba(112,15,59,0.18), 0 3px 10px rgba(0,0,0,0.08);
+    background:#efeae9;
+    transition:transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.55s ease, filter 0.55s ease;
+    will-change:transform,opacity;
+  }
+  .card iframe { width:100%; height:100%; border:0; display:block; pointer-events:none; }
+  .card.flip { animation: flipIn 0.75s cubic-bezier(0.22,1,0.36,1) both; }
+  @keyframes flipIn { from { transform:rotateY(-90deg); } to { transform:rotateY(0deg); } }
+  .controls { display:flex; align-items:center; justify-content:center; gap:18px; }
+  .btn {
+    width:42px; height:42px; border-radius:50%;
+    border:1.5px solid rgba(112,15,59,0.45);
+    background:rgba(255,255,255,0.92); color:rgba(112,15,59,1);
+    font-family:'DegularDisplay-Bold','Degular Display','Degular',system-ui,sans-serif;
+    font-weight:700; font-size:30px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    line-height:1; padding:0 0 3px 0;
+    -webkit-text-stroke:0.4px currentColor;
+    transition:background 0.2s, border-color 0.2s, transform 0.1s;
+  }
+  .btn:hover { background:rgba(112,15,59,0.08); border-color:rgba(112,15,59,0.7); }
+  .btn:active { transform:scale(0.93); }
+  .dots { display:flex; gap:8px; align-items:center; }
+  .dot { width:7px; height:7px; border-radius:50%; background:rgba(112,15,59,0.22); cursor:pointer; transition:background 0.25s, transform 0.25s; }
+  .dot.on { background:rgba(112,15,59,0.85); transform:scale(1.3); }
+</style>
+</head>
+<body>
+
+<div class="stage-wrap">
+  <div class="stage" id="stage"></div>
+  <div class="controls">
+    <button class="btn" id="prev" aria-label="Anterior">&#8249;</button>
+    <div class="dots" id="dots"></div>
+    <button class="btn" id="next" aria-label="Siguiente">&#8250;</button>
+  </div>
+</div>
+
+<script>
+/* Cada tarjeta vive como string; se carga con srcdoc (mismo origen, sin archivos externos) */
+
+const CARD_SCRIPT = `
+  var framed=window.self!==window.top;
+  function killFlip(){if(!framed)return;var s=document.getElementById('card-svg');if(s)s.style.animation='none';}
+  killFlip();
+  window.addEventListener('message',function(e){
+    if(e.data!=='replay')return;
+    var sel=framed?'#title-anim,#orbit-dots,.num-item,#sparkle,#desc-anim':'#card-svg,#title-anim,#orbit-dots,.num-item,#sparkle,#desc-anim';
+    document.querySelectorAll(sel).forEach(function(el){el.style.animation='none';void el.offsetWidth;el.style.animation='';});
+    killFlip();
+  });
+`;
+
+const SHARED_CSS = `
+  @font-face{font-family:'PP Editorial New';font-style:italic;font-weight:400;src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/PPEditorialNew-Italic.otf') format('opentype')}
+  @font-face{font-family:'PP Editorial New';font-style:italic;font-weight:100;src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/PPEditorialNew-UltralightItalic.otf') format('opentype')}
+  @font-face{font-family:'Kaftan Serif - Trial';font-style:normal;font-weight:400;src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/kaftan.otf') format('opentype')}
+  @font-face{font-family:'Degular Display';font-style:normal;font-weight:400;src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/44511.otf') format('opentype')}
+  @font-face{font-family:'Degular Display';font-style:normal;font-weight:700;src:url('https://oscardanteh.github.io/Lucia-O-Ianinni/fonts/44524.otf') format('opentype')}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;background:transparent;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .card-scene{width:100%;height:100%;perspective:1400px;perspective-origin:center center}
+  #card-svg{display:block;width:100%;height:100%;animation:cardFlip 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s both}
+  @keyframes cardFlip{from{transform:rotateY(-90deg);opacity:0}to{transform:rotateY(0deg);opacity:1}}
+  #orbit-dots{transform-box:view-box;transform-origin:463px 396px;animation:orbitSpin 14s linear infinite}
+  @keyframes orbitSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  #title-anim{opacity:0;animation:fadeUp 0.6s ease-out 0.75s forwards}
+  .num-item{opacity:0}
+  #n1{animation:fadeUp 0.35s ease-out 1.00s forwards}
+  #n2{animation:fadeUp 0.35s ease-out 1.10s forwards}
+  #n3{animation:fadeUp 0.35s ease-out 1.20s forwards}
+  #n4{animation:fadeUp 0.35s ease-out 1.30s forwards}
+  #n5{animation:fadeUp 0.35s ease-out 1.40s forwards}
+  #n6{animation:fadeUp 0.35s ease-out 1.50s forwards}
+  #n7{animation:fadeUp 0.35s ease-out 1.60s forwards}
+  #n8{animation:fadeUp 0.35s ease-out 1.70s forwards}
+  #n9{animation:fadeUp 0.35s ease-out 1.80s forwards}
+  #desc-anim{opacity:0;animation:fadeUp 0.7s ease-out 2.05s forwards}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+`;
+
+const NUMS = `
+  <g transform="translate(56.11306.23)"><text id="n1" class="NI num-item">1</text></g>
+  <g transform="translate(56.11404.88)"><text id="n2" class="NI num-item">2</text></g>
+  <g transform="translate(56.11503.53)"><text id="n3" class="NI num-item">3</text></g>
+  <g transform="translate(56.11602.18)"><text id="n4" class="NI num-item">4</text></g>
+  <g transform="translate(56.11700.83)"><text id="n5" class="NI num-item">5</text></g>
+  <g transform="translate(56.11799.48)"><text id="n6" class="NI num-item">6</text></g>
+  <g transform="translate(56.11898.13)"><text id="n7" class="NI num-item">7</text></g>
+  <g transform="translate(56.11996.78)"><text id="n8" class="NI num-item">8</text></g>
+  <g transform="translate(56.111095.43)"><text id="n9" class="NI num-item">9</text></g>
+`;
+
+const ARCS = `
+  <path d="M619.81,381.47c16.03-21.55,41.88-59.32,38.28-86.8-3.96-24.75-34.55-26.74-54.78-26.6-81.63,3.95-171.85,64.26-240.45,106.38-4.01,2.41-8.03,4.83-12.2,6.97,6.89-3.85,16.84-10.79,23.6-15.2,65.23-43.63,176.71-116.98,257.43-100.62,63.7,14.61,14.45,87.42-11.87,115.87h0Z"/>
+  BIGNUMBER
+  <path d="M303.39,414.17c-31.79,26.95-122.59,109.15-52.19,139.3,62.93,23,236.87-64.04,294.69-99.69,9.41-5.98,19.02-11.85,27.27-19.42-8,7.85-17.42,14.09-26.71,20.29-58.34,38.42-230.77,127.58-297.07,103.39-75.78-34.14,16.24-116.84,54.01-143.88h0Z"/>
+  <g id="orbit-dots">
+    <circle cx="622.53" cy="377.07" r="7.69"/>
+    <circle style="fill:none;stroke:#000;stroke-miterlimit:10" cx="302.91" cy="414.65" r="7.69"/>
+  </g>
+`;
+
+const STAR = `
+  <g>
+    <path class="R" d="M752.1,28.52l-1.88,58.8c-.01.77-1.24.8-1.26,0l-1.88-58.8c-.08-3.37,5.1-3.4,5.02,0h0Z"/>
+    <path class="R" d="M747.08,171.3l1.88-58.79c0-.77,1.25-.8,1.26,0l1.88,58.79c.08,3.37-5.1,3.4-5.02,0h0Z"/>
+    <path class="R" d="M820.97,102.42l-58.79-1.88c-.77-.01-.8-1.24,0-1.26l58.79-1.88c3.37-.08,3.4,5.1,0,5.02h0Z"/>
+    <path class="R" d="M678.2,97.4l58.79,1.88c.77.01.8,1.24,0,1.26,0,0-58.79,1.88-58.79,1.88-3.37.08-3.4-5.1,0-5.02h0Z"/>
+    <path class="R" d="M790.73,62.31l-33.74,31.1c-.56.53-1.43-.32-.89-.89,0,0,31.08-33.76,31.08-33.76,2.33-2.48,6.05,1.2,3.55,3.55h0Z"/>
+    <path class="R" d="M708.44,137.51l33.74-31.1c.56-.53,1.43.32.89.89l-31.08,33.76c-2.33,2.49-6.05-1.2-3.55-3.55h0Z"/>
+    <path class="R" d="M787.17,141.05l-31.08-33.76c-.53-.56.32-1.43.89-.89l33.74,31.09c2.48,2.33-1.21,6.05-3.55,3.55h0Z"/>
+    <path class="R" d="M711.99,58.77l31.08,33.75c.53.56-.31,1.43-.89.89l-33.74-31.09c-2.48-2.33,1.2-6.05,3.55-3.55h0Z"/>
+  </g>
+`;
+
+function makeCard(opts) {
+  // opts: { title, gradDefs, sparkleD, sparkleOriginY, bigNum, bigNumTransform, descHTML, numClass, titleHTML, sparkleYCenter }
+  const arcs = ARCS.replace('BIGNUMBER', `<text class="BN" transform="${opts.bigNumTransform}">${opts.bigNum}</text>`);
+  const nums  = NUMS.replace(/class="NI/g, `class="${opts.numClass}`);
+  const sparkCSS = `#sparkle{opacity:0;transform-box:view-box;transform-origin:120.74px ${opts.sparkleOriginY}px;animation:sparkPop 0.55s cubic-bezier(0.175,0.885,0.32,1.275) 1.85s forwards}@keyframes sparkPop{0%{opacity:0;transform:scale(0) rotate(-30deg)}65%{opacity:1;transform:scale(1.6) rotate(8deg)}100%{opacity:1;transform:scale(1) rotate(0deg)}}`;
+
+  return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>${SHARED_CSS}
+.R{fill:#700f3b}.BN{font-family:PPEditorialNew-Italic,'PP Editorial New',Cormorant,Georgia,serif;font-size:434.13px;font-style:italic;fill:#700f3b}
+${opts.numClass === 'cls-a' ? `.cls-a{font-family:PPEditorialNew-UltralightItalic,'PP Editorial New',Cormorant,Georgia,serif;font-size:41.1px;font-weight:100;font-style:italic}` : ''}
+${opts.extraCSS || ''}
+${sparkCSS}
+</style></head><body>
+<div class="card-scene">
+<svg id="card-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 1150" preserveAspectRatio="xMidYMid slice">
+<defs>${opts.gradDefs}</defs>
+<rect fill="url(#grad)" width="850" height="1150"/>
+${STAR}
+<g transform="translate(10,0)"><path id="sparkle" class="R" d="${opts.sparkleD}"/></g>
+<g id="title-anim">${opts.titleHTML}</g>
+${nums}
+${arcs}
+<g id="desc-anim">
+<foreignObject x="150" y="630" width="668" height="520" overflow="visible">
+<div xmlns="http://www.w3.org/1999/xhtml" style="font-family:DegularDisplay-Regular,'Degular Display',Cormorant,Georgia,serif;font-size:2.6em;line-height:1;color:#000;width:668px">
+${opts.descHTML}
+</div>
+</foreignObject>
+</g>
+</svg></div>
+<script>${CARD_SCRIPT}<\/script>
+</body></html>`;
+}
+
+/* ── Gradientes ─────────────────────────────────────────────────────── */
+
+const GRAD_11 = `<radialGradient id="grad" cx="84.83" cy="1192.9" fx="84.83" fy="1192.9" r="1229.4" gradientUnits="userSpaceOnUse">
+  <stop offset=".11" stop-color="#af5d71" stop-opacity=".75"/>
+  <stop offset=".12" stop-color="#b06074" stop-opacity=".76"/>
+  <stop offset=".22" stop-color="#c18593" stop-opacity=".82"/>
+  <stop offset=".33" stop-color="#cfa4ad" stop-opacity=".88"/>
+  <stop offset=".44" stop-color="#dabdc3" stop-opacity=".92"/>
+  <stop offset=".55" stop-color="#e3d1d3" stop-opacity=".96"/>
+  <stop offset=".68" stop-color="#eadfdf" stop-opacity=".98"/>
+  <stop offset=".81" stop-color="#ede7e6" stop-opacity="1"/>
+  <stop offset="1"   stop-color="#efeae9"/>
+</radialGradient>`;
+
+const GRAD_02 = `<radialGradient id="grad" cx="703.72" cy="187.96" fx="703.72" fy="187.96" r="1229.4" gradientUnits="userSpaceOnUse">
+  <stop offset=".11" stop-color="#af5d71" stop-opacity=".75"/>
+  <stop offset=".12" stop-color="#b06074" stop-opacity=".76"/>
+  <stop offset=".22" stop-color="#c18593" stop-opacity=".82"/>
+  <stop offset=".33" stop-color="#cfa4ad" stop-opacity=".88"/>
+  <stop offset=".44" stop-color="#dabdc3" stop-opacity=".92"/>
+  <stop offset=".55" stop-color="#e3d1d3" stop-opacity=".96"/>
+  <stop offset=".68" stop-color="#eadfdf" stop-opacity=".98"/>
+  <stop offset=".81" stop-color="#ede7e6" stop-opacity="1"/>
+  <stop offset="1"   stop-color="#efeae9"/>
+</radialGradient>`;
+
+const GRAD_03 = `<radialGradient id="grad" cx="287.04" cy="745.58" fx="621.99" fy="124.74" r="1184.47" gradientTransform="translate(898.097 1212.5244) rotate(149.3016) scale(1 .9569)" gradientUnits="userSpaceOnUse">
+  <stop offset="0"   stop-color="#af5d71" stop-opacity=".75"/>
+  <stop offset=".12" stop-color="#bc7989" stop-opacity=".8"/>
+  <stop offset=".33" stop-color="#d1a9b2" stop-opacity=".89"/>
+  <stop offset=".51" stop-color="#e1ccd0" stop-opacity=".95"/>
+  <stop offset=".66" stop-color="#ebe2e2" stop-opacity=".99"/>
+  <stop offset=".75" stop-color="#efeae9"/>
+</radialGradient>`;
+
+const GRAD_04 = `<radialGradient id="grad" cx="207.38" cy="1113.24" fx="-189.21" fy="361.86" r="1229.4" gradientTransform="translate(163.4 56.69) rotate(8.93) scale(1 .93)" gradientUnits="userSpaceOnUse">
+  <stop offset=".11" stop-color="#af5d71" stop-opacity=".75"/>
+  <stop offset=".12" stop-color="#b06074" stop-opacity=".76"/>
+  <stop offset=".22" stop-color="#c18593" stop-opacity=".82"/>
+  <stop offset=".33" stop-color="#cfa4ad" stop-opacity=".88"/>
+  <stop offset=".44" stop-color="#dabdc3" stop-opacity=".92"/>
+  <stop offset=".55" stop-color="#e3d1d3" stop-opacity=".96"/>
+  <stop offset=".68" stop-color="#eadfdf" stop-opacity=".98"/>
+  <stop offset=".81" stop-color="#ede7e6" stop-opacity="1"/>
+  <stop offset="1"   stop-color="#efeae9"/>
+</radialGradient>`;
+
+const GRAD_05 = `<radialGradient id="grad" cx="84.83" cy="1192.9" fx="84.83" fy="1192.9" r="1229.4" gradientUnits="userSpaceOnUse">
+  <stop offset=".11" stop-color="#af5d71" stop-opacity=".75"/>
+  <stop offset=".11" stop-color="#b06174" stop-opacity=".76"/>
+  <stop offset=".15" stop-color="#bf818f" stop-opacity=".81"/>
+  <stop offset=".18" stop-color="#cc9da7" stop-opacity=".86"/>
+  <stop offset=".22" stop-color="#d7b5bc" stop-opacity=".91"/>
+  <stop offset=".27" stop-color="#dfc8cc" stop-opacity=".94"/>
+  <stop offset=".32" stop-color="#e6d7d9" stop-opacity=".97"/>
+  <stop offset=".39" stop-color="#ebe2e2" stop-opacity=".99"/>
+  <stop offset=".47" stop-color="#eee8e7" stop-opacity="1"/>
+  <stop offset=".69" stop-color="#efeae9"/>
+</radialGradient>`;
+
+/* ── Sparkle paths (únicos por tarjeta) ─────────────────────────────── */
+const SP_11 = "M111.85,297.05c.66-2.85,2.89-5.09,5.75-5.74l16.55-1.11-16.55-1.11c-2.86-.65-5.09-2.89-5.75-5.74L111.85,268.9l-1.11,16.55c-.66,2.86-2.89,5.09-5.75,5.74l-16.55,1.11,16.55,1.11c2.86.65,5.09,2.89,5.74,5.74l1.11,16.55,1.11-16.55Z";
+const SP_02 = "M111.85,297.05c.66-2.85,2.89-5.09,5.75-5.74l16.55-1.11-16.55-1.11c-2.86-.65-5.09-2.89-5.75-5.74l-1.11-16.55-1.11,16.55c-.66,2.86-2.89,5.09-5.75,5.74l-16.55,1.11,16.55,1.11c2.86.65,5.09,2.89,5.74,5.74l1.11,16.55,1.11-16.55Z";
+const SP_03 = "M111.85,888.16c.66-2.85,2.89-5.09,5.75-5.74l16.55-1.11-16.55-1.11c-2.86-.65-5.09-2.89-5.75-5.74l-1.11-16.55-1.11,16.55c-.66,2.86-2.89,5.09-5.75,5.74l-16.55,1.11,16.55,1.11c2.86.65,5.09,2.89,5.74,5.74l1.11,16.55,1.11-16.55Z";
+const SP_04 = "M111.85,590.67c.66-2.85,2.89-5.09,5.75-5.74l16.55-1.11-16.55-1.11c-2.86-.65-5.09-2.89-5.75-5.74l-1.11-16.55-1.11,16.55c-.66,2.86-2.89,5.09-5.75,5.74l-16.55,1.11,16.55,1.11c2.86.65,5.09,2.89,5.74,5.74l1.11,16.55,1.11-16.55Z";
+const SP_05 = "M111.85,594.42c.66-2.85,2.89-5.09,5.75-5.74l16.55-1.11-16.55-1.11c-2.86-.65-5.09-2.89-5.75-5.74l-1.11-16.55-1.11,16.55c-.66,2.86-2.89,5.09-5.75,5.74l-16.55,1.11,16.55,1.11c2.86.65,5.09,2.89,5.74,5.74l1.11,16.55,1.11-16.55Z";
+
+/* ── CSS de fuentes para números laterales ──────────────────────────── */
+const NUM_FONT = `.cls-a{font-family:PPEditorialNew-UltralightItalic,'PP Editorial New',Cormorant,Georgia,serif;font-size:41.1px;font-weight:100;font-style:italic}`;
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Tarjeta 1 · 11 Personalidad
+═══════════════════════════════════════════════════════════════════════ */
+const T11 = makeCard({
+  gradDefs: GRAD_11,
+  sparkleD: SP_11,
+  sparkleOriginY: 286.39,
+  numClass: 'cls-a',
+  extraCSS: NUM_FONT + `.KS{font-family:KaftanSerifTrial-Regular,'Kaftan Serif - Trial',Cormorant,Georgia,serif;font-size:96px}`,
+  titleHTML: `<text class="KS" transform="translate(43.93140.03)"><tspan style="letter-spacing:-.02em" x="0" y="0">P</tspan><tspan x="54.82" y="0">ersonal</tspan><tspan style="letter-spacing:-.02em" x="398.3" y="0">i</tspan><tspan x="424.12" y="0">d</tspan><tspan x="483.83" y="0">a</tspan><tspan x="539.23" y="0">d</tspan></text>`,
+  bigNum: '11',
+  bigNumTransform: 'translate(281.4 596.43)',
+  descHTML: `<p style="margin:0 0 0.6em 0">Cómo te manifiestas al mundo. Tu imagen, poder de atracción y el entorno que te rodea.</p>
+<p style="margin:0 0 0.6em 0">Aparentas ser inusual, intuitiva y creativa. Las personas pueden sentir una conexión inmediata contigo, ya sea de atracción o de rechazo.</p>
+<p style="margin:0">Tu autenticidad magnética no deja indiferente a nadie.</p>`
+});
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Tarjeta 2 · 1 Intensidad
+═══════════════════════════════════════════════════════════════════════ */
+const T02 = makeCard({
+  gradDefs: GRAD_02,
+  sparkleD: SP_02,
+  sparkleOriginY: 286.39,
+  numClass: 'cls-a',
+  extraCSS: NUM_FONT + `.KS{font-family:KaftanSerifTrial-Regular,'Kaftan Serif - Trial',Cormorant,Georgia,serif;font-size:96px}`,
+  titleHTML: `<text class="KS" transform="translate(43.93132.37)"><tspan x="0" y="0">Alma</tspan></text>`,
+  bigNum: '1',
+  bigNumTransform: 'translate(357.95 596.37)',
+  descHTML: `<p style="margin:0 0 0.6em 0">Revela lo que sientes en tu interior. Las motivaciones profundas que influyen en tus decisiones y acciones.</p>
+<p style="margin:0 0 0.6em 0">Tu impulso interno, tu fuerza y tu enfoque vital. Tienes liderazgo natural, iniciativa y determinación para abrir camino.</p>
+<p style="margin:0">Tu interior te mueve a comenzar, crear y transformar.</p>`
+});
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Tarjeta 3 · 7 Fecha de Nacimiento
+═══════════════════════════════════════════════════════════════════════ */
+const T03 = makeCard({
+  gradDefs: GRAD_03,
+  sparkleD: SP_03,
+  sparkleOriginY: 877.50,
+  numClass: 'cls-a',
+  extraCSS: NUM_FONT + `.KS{font-family:KaftanSerifTrial-Regular,'Kaftan Serif - Trial',Cormorant,Georgia,serif;font-size:72px}`,
+  titleHTML: `<text class="KS" transform="translate(43.9389.48)"><tspan x="0" y="0">Día de</tspan><tspan x="0" y="72">Nacimiento</tspan></text>`,
+  bigNum: '7',
+  bigNumTransform: 'translate(313.02 596.37)',
+  descHTML: `<p style="margin:0 0 0.6em 0">Tu visión de la vida, tus valores.</p>
+<p style="margin:0">Eres observadora, profunda e intuitiva. Necesitas momentos de soledad para conectar con tu sabiduría interior y comprender la vida en su verdadera esencia.</p>`
+});
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Tarjeta 4 · 4 Trayectoria de vida
+═══════════════════════════════════════════════════════════════════════ */
+const T04 = makeCard({
+  gradDefs: GRAD_04,
+  sparkleD: SP_04,
+  sparkleOriginY: 580.01,
+  numClass: 'cls-a',
+  extraCSS: NUM_FONT + `.KS{font-family:KaftanSerifTrial-Regular,'Kaftan Serif - Trial',Cormorant,Georgia,serif;font-size:72px}`,
+  titleHTML: `<text class="KS" transform="translate(43.9391.01)"><tspan style="letter-spacing:-.08em" x="0" y="0">T</tspan><tspan style="letter-spacing:-.02em" x="46.01" y="0">r</tspan><tspan x="77.62" y="0">a</tspan><tspan style="letter-spacing:-.03em" x="118.94" y="0">y</tspan><tspan style="letter-spacing:.01em" x="161.93" y="0">e</tspan><tspan x="202.68" y="0">cto</tspan><tspan style="letter-spacing:.03em" x="315.5" y="0">r</tspan><tspan x="350.42" y="0">ia</tspan><tspan x="0" y="72">de </tspan><tspan style="letter-spacing:.01em" x="106.34" y="72">v</tspan><tspan style="letter-spacing:-.02em" x="151.63" y="72">i</tspan><tspan x="171" y="72">da</tspan></text>`,
+  bigNum: '4',
+  bigNumTransform: 'translate(298.72 596.37)',
+  descHTML: `<p style="margin:0 0 0.6em 0">El número sobre el que debes actuar para ser feliz.</p>
+<p style="margin:0 0 0.6em 0">Muestra tus talentos, capacidades y qué tipos de carreras o vocaciones son más adecuadas para ti.</p>
+<p style="margin:0 0 0.6em 0">Tu camino es construir, organizar, dar estructura y crear bases sólidas para ti y para los demás.</p>
+<p style="margin:0">La disciplina, la constancia y el orden te conducirán al éxito y a la realización personal.</p>`
+});
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Tarjeta 5 · 4 Poder del Nombre
+═══════════════════════════════════════════════════════════════════════ */
+const T05 = makeCard({
+  gradDefs: GRAD_05,
+  sparkleD: SP_05,
+  sparkleOriginY: 583.76,
+  numClass: 'cls-a',
+  extraCSS: NUM_FONT + `.KS{font-family:KaftanSerifTrial-Regular,'Kaftan Serif - Trial',Cormorant,Georgia,serif;font-size:72px}`,
+  titleHTML: `<text class="KS" transform="translate(43.9387.95)"><tspan style="letter-spacing:-.03em" x="0" y="0">P</tspan><tspan style="letter-spacing:.01em" x="39.89" y="0">o</tspan><tspan x="84.96" y="0">der d</tspan><tspan style="letter-spacing:-.01em" x="269.13" y="0">e</tspan><tspan x="307.87" y="0">l</tspan><tspan x="0" y="72">Nombre</tspan></text>`,
+  bigNum: '4',
+  bigNumTransform: 'translate(306.89 596.37)',
+  descHTML: `<p style="margin:0 0 0.6em 0">Tus aspiraciones y el camino que seguirás para cumplir el propósito de tu vida.</p>
+<p style="margin:0 0 0.6em 0">Energía práctica, estable y constructiva. Buscas resultados concretos y valor real.</p>
+<p style="margin:0 0 0.6em 0">Tu nombre te impulsa a crear seguridad, orden y estructuras que perduren en el tiempo.</p>
+<p style="margin:0">Eres una constructora natural de proyectos y de realidades.</p>`
+});
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Galería
+═══════════════════════════════════════════════════════════════════════ */
+const CARDS_HTML = [T11, T02, T03, T04, T05];
+
+/* ── Responsive sizing ──────────────────────────────────────────────── */
+function applySize() {
+  const cw = Math.max(230, Math.min(420, Math.round(window.innerWidth * 0.48)));
+  const ch = Math.round(cw * (1250 / 850));
+  const r  = document.documentElement;
+  r.style.setProperty('--cw', cw + 'px');
+  r.style.setProperty('--ch', ch + 'px');
+  r.style.setProperty('--cx', Math.round(cw / 2) + 'px');
+  r.style.setProperty('--cy', Math.round(ch / 2) + 'px');
+  r.style.setProperty('--sw', (cw + Math.round(cw * 0.45)) + 'px');
+  return cw;
+}
+let CW = applySize();
+window.addEventListener('resize', () => { CW = applySize(); render(); });
+
+const stage  = document.getElementById('stage');
+const dotsEl = document.getElementById('dots');
+const N      = CARDS_HTML.length;
+
+const cards = CARDS_HTML.map((html, i) => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  const ifr = document.createElement('iframe');
+  ifr.srcdoc = html;
+  card.appendChild(ifr);
+  stage.appendChild(card);
+
+  const dot = document.createElement('div');
+  dot.className = 'dot';
+  dot.addEventListener('click', () => go(i));
+  dotsEl.appendChild(dot);
+  return { card, ifr };
+});
+const dots = [...dotsEl.querySelectorAll('.dot')];
+
+let active = 0, visible = false;
+
+function render() {
+  const stackX = Math.round(CW * 0.068); // ≈26px cuando CW=380, se reduce en móvil
+  cards.forEach(({ card }, i) => {
+    const rel   = (i - active + N) % N;
+    const depth = rel;
+    const x     = -depth * stackX;
+    const y     =  depth * 7;
+    const s     =  1 - depth * 0.05;
+    const rotY  =  depth * 5;
+    card.style.transform    = `translate(${x}px,${y}px) scale(${s}) rotateY(${rotY}deg)`;
+    card.style.opacity      = depth > 3 ? 0 : (1 - depth * 0.15);
+    card.style.zIndex       = String(100 - depth);
+    card.style.pointerEvents = rel === 0 ? 'none' : 'auto';
+    card.onclick = rel === 0 ? null : () => go(i);
+  });
+  dots.forEach((d, i) => d.classList.toggle('on', i === active));
+}
+
+function triggerFront() {
+  if (!visible) return;
+  cards.forEach(({ card }) => card.classList.remove('flip'));
+  const { card, ifr } = cards[active];
+  void card.offsetWidth;
+  card.classList.add('flip');
+  if (ifr.contentWindow) ifr.contentWindow.postMessage('replay', '*');
+}
+
+function go(i) { active = ((i % N) + N) % N; render(); triggerFront(); }
+function next() { go(active + 1); }
+function prev() { go(active - 1); }
+
+document.getElementById('next').addEventListener('click', next);
+document.getElementById('prev').addEventListener('click', prev);
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft')  prev();
+});
+
+let dragX = null;
+stage.addEventListener('pointerdown', e => { dragX = e.clientX; });
+window.addEventListener('pointerup', e => {
+  if (dragX === null) return;
+  const dx = e.clientX - dragX;
+  if (dx < -40) next();
+  else if (dx > 40) prev();
+  dragX = null;
+});
+
+function setVisible(v) {
+  const was = visible; visible = v;
+  if (visible && !was) triggerFront();
+}
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(es => setVisible(es[0].isIntersecting), { threshold: 0.15 }).observe(stage);
+} else { visible = true; }
+
+document.addEventListener('visibilitychange', () => { if (!document.hidden && visible) triggerFront(); });
+
+render();
+if (visible) triggerFront();
+</script>
+</body>
+</html>
